@@ -15,12 +15,11 @@ class RucksackOrganizer:
         self.split_rucksacks: Tuple[Tuple[str]] = ()
         self.reappearing_items = []
         self.item_priority: Dict[str, int] = {}
-        self.grouped_elves: List[List[str]] = list(divide_chunks(self.elvish_rucksack, 3))
         self.elvish_group_badges: List[str] = []
         self._set_rucksack_item_priority()
         self._split_rucksack_for_two_compartments()
-        self._find_reappearing_items()
-        self._find_elvish_group_badge()
+        self._find_reappearing_items_of_given(self.split_rucksacks, "items")
+        self._find_reappearing_items_of_given(list(divide_chunks(self.elvish_rucksack, 3)), "badges")
 
     def _set_rucksack_item_priority(self) -> None:
         for index, letter in enumerate(ascii_letters):
@@ -45,12 +44,6 @@ class RucksackOrganizer:
         for item in given_list:
             priority_sum += self.item_priority[item]
         return priority_sum
-
-    def _find_reappearing_items(self) -> None:
-        self._find_reappearing_items_of_given(self.split_rucksacks, "items")
-
-    def _find_elvish_group_badge(self) -> None:
-        self._find_reappearing_items_of_given(self.grouped_elves, "badges")
 
     def get_priority_sum_of_reappearing_items(self) -> int:
         return self._get_priority_sum_of_given(self.reappearing_items)
