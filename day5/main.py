@@ -1,7 +1,6 @@
 from typing import List, Dict
 import re
 from input import crane_operations
-from test_input import test_crane_operations
 
 
 class CraneOperationsResolver:
